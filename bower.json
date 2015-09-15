@@ -1,0 +1,28 @@
+{
+  "name": "Hexx",
+  "version": "0.0.1",
+  "homepage": "https://github.com/MD4/Hexx",
+  "authors": [
+    "Martin DEQUATREMARE (MD4) <m.dequa@gmail.com>"
+  ],
+  "description": "A simple hexagonal-board game",
+  "main": "index.html",
+  "keywords": [
+    "simple",
+    "game",
+    "board",
+    "hexagonal"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "MAGE": "MD4/MAGE#~0.0.1",
+    "MATH": "MD4/MATH"
+  }
+}
