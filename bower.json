@@ -22,7 +22,8 @@
     "tests"
   ],
   "dependencies": {
-    "MAGE": "MD4/MAGE#~0.0.1",
-    "MATH": "MD4/MATH"
+    "MAGE": "MD4/MAGE#~0.0.3",
+    "MATH": "MD4/MATH",
+    "socket.io-client": "sio-client#~1.3.6"
   }
 }

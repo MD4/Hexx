@@ -3,5 +3,7 @@
 Hexx= {
     core: {},
     board: {},
-    utils: {}
+    utils: {},
+    services: {},
+    controllers: {}
 };

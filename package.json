@@ -1,0 +1,29 @@
+{
+  "name": "Hexx",
+  "version": "0.0.1",
+  "description": "A simple hexagonal-board game",
+  "main": "public/main.js",
+  "scripts": {
+    "start": "node server/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MD4/Hexx.git"
+  },
+  "keywords": [
+    "simple",
+    "game",
+    "board",
+    "hexagonal"
+  ],
+  "author": "Martin DEQUATREMARE (MD4) <m.dequa@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MD4/Hexx/issues"
+  },
+  "dependencies": {
+    "async": "^1.4.2",
+    "express": "^4.13.3",
+    "socket.io": "^1.3.6"
+  }
+}
