@@ -1,6 +1,6 @@
-
 // Namespaces
-Hexx= {
+Hexx = {
+    auth: null,
     core: {},
     board: {},
     utils: {},

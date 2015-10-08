@@ -16,7 +16,12 @@ var HexxClient = function (socket) {
 
 HexxClient.prototype.onAuth = function (username) {
     if (username.match(/^[a-z0-9_-]{3,16}$/)) {
-        this.socket.emit('auth:success');
+        this.auth = {
+            username: username,
+            connectionDate: new Date()
+        };
+
+        this.socket.emit('auth:success', this.auth);
     } else {
         this.socket.emit('auth:fail');
     }
