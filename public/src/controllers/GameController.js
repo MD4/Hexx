@@ -1,11 +1,15 @@
 (function() {
 
-    Hexx.controllers.Game = Hexx.core.Controller.extend({
+    var Controller = Hexx.core.Controller,
+        Sockets = Hexx.services.Sockets,
+        Game = Hexx.core.Game;
+
+    Hexx.controllers.Game = Controller.extend({
 
         init: function(container) {
             this._super(container);
 
-            this.game = new Hexx.core.Game(
+            this.game = new Game(
                 container,
                 {
                     debugMode: true
@@ -13,7 +17,7 @@
             );
 
             this.game.onPlay = function(x, y) {
-                Hexx.services.Sockets.play(x, y);
+                Sockets.play(x, y);
             };
         },
 

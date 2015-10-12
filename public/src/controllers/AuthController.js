@@ -1,6 +1,9 @@
 (function() {
 
-    Hexx.controllers.Auth = Hexx.core.Controller.extend({
+    var Controller = Hexx.core.Controller,
+        Sockets = Hexx.services.Sockets;
+
+    var AuthController = Controller.extend({
 
         init: function(container) {
             this._super(container);
@@ -12,13 +15,13 @@
             this.$buttonAuth.onclick = this.authClick.bind(this);
             this.$inputUsername.onkeypress = this.usernameKeyPress.bind(this);
 
-            Hexx.services.Sockets.onAuthFail(this.onAuthFail.bind(this));
-            Hexx.services.Sockets.onAuthSuccess(this.onAuthSuccess.bind(this));
+            Sockets.onAuthFail(this.onAuthFail.bind(this));
+            Sockets.onAuthSuccess(this.onAuthSuccess.bind(this));
         },
 
         authClick: function() {
             var username = this.$inputUsername.value;
-            Hexx.services.Sockets.auth(username);
+            Sockets.auth(username);
         },
 
         usernameKeyPress: function(e) {
@@ -31,14 +34,23 @@
             Hexx.auth = null;
 
             this.$labelAuthResult.innerHTML = 'Auth failed !';
+
+            this.trigger(AuthController.AUTH_FAIL);
         },
 
         onAuthSuccess: function(auth) {
             Hexx.auth = auth;
 
             this.$labelAuthResult.innerHTML = 'Auth succeed !';
+
+            this.trigger(AuthController.AUTH_SUCCESS);
         }
 
     });
+
+    AuthController.AUTH_SUCCESS = 'auth:success';
+    AuthController.AUTH_FAIL = 'auth:fail';
+
+    Hexx.controllers.Auth = AuthController;
 
 })();

@@ -22,6 +22,10 @@
             this.socket.emit('auth', username);
         },
 
+        queue: function() {
+            this.socket.emit('queue');
+        },
+
         play: function (x, y) {
             this.socket.emit('play', x, y);
         },
@@ -40,6 +44,10 @@
 
         onDisconnect: function (callback) {
             this.socket.on('disconnect', callback);
+        },
+
+        onQueuePosition: function (callback) {
+            this.socket.on('queue:position', callback);
         }
 
     };

@@ -1,3 +1,5 @@
+var Queue = require('../queue/Queue');
+
 var HexxClient = function (socket) {
     console.log('User connected');
 
@@ -11,6 +13,7 @@ var HexxClient = function (socket) {
     }.bind(this), 5000);*/
 
     socket.on('auth', this.onAuth.bind(this));
+    socket.on('queue', this.onQueue.bind(this));
     socket.on('disconnect', this.onDisconnect.bind(this));
 };
 
@@ -27,9 +30,22 @@ HexxClient.prototype.onAuth = function (username) {
     }
 };
 
+HexxClient.prototype.onQueue = function () {
+    if (this.auth) {
+        Queue.add(this);
+    } else {
+        this.socket.emit('queue:fail');
+    }
+};
+
 HexxClient.prototype.onDisconnect = function () {
     //clearTimeout(this.timeout);
+    Queue.remove(this);
     console.log('User disconnected');
+};
+
+HexxClient.prototype.onQueuePositionChanged = function(position) {
+    this.socket.emit('queue:position', position);
 };
 
 module.exports = HexxClient;

@@ -1,50 +1,62 @@
-(function() {
+(function () {
 
     Hexx.core.Controller = Class.extend({
 
         events: {},
 
-        init: function(container) {
+        init: function (container) {
             this.$container = container;
 
             this.hide();
         },
 
-        hide: function() {
+        hide: function () {
             this.$container.style.display = 'none';
+            this.hidden && this.hidden();
         },
 
-        show: function() {
+        show: function () {
             this.$container.style.display = 'block';
+            this.shown && this.shown();
         },
 
-        on: function(event, callback) {
+        hidden: function () {
+            // Override this
+        },
+
+        shown: function () {
+            // Override this
+        },
+
+        on: function (event, callback) {
             if (!this.events[event + ""]) {
                 this.events[event + ""] = [];
             }
             this.events[event + ""].push(callback);
         },
 
-        off: function(event, callback) {
+        off: function (event, callback) {
             if (!this.events[event + ""]) {
-                throw 'Event "' + event + '" is not registered';
+                return;
             }
             this.events[event + ""].splice(this.events[event + ""].indexOf(callback), 1);
         },
 
-        clear: function(event) {
+        clear: function (event) {
             if (!this.events[event + ""]) {
-                throw 'Event "' + event + '" is not registered';
+                return;
             }
             delete this.events[event + ""];
         },
 
-        trigger: function(event) {
+        trigger: function (event) {
             if (!this.events[event + ""]) {
-                throw 'Event "' + event + '" is not registered';
+                return;
             }
-            this.events[event + ""].forEach(function(callback) {
-                callback.apply(this, Array.prototype.slice.call(arguments));
+            var args = Array.prototype.slice.call(arguments);
+            args.shift();
+            this.events[event + ""].forEach(function (callback) {
+                callback.apply(this, args);
             }.bind(this));
         }
 

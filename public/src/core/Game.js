@@ -1,5 +1,8 @@
 (function () {
-    Hexx.core.Game = MAGE.core.Game.extend({
+    var Game = MAGE.core.Game,
+        Board = Hexx.board.Board;
+
+    Hexx.core.Game = Game.extend({
 
         board: null,
         camera: {
@@ -17,7 +20,7 @@
         initialize: function () {
             this.clearColor = "#DBDDDF";
             this.debugColor = "#666";
-            this.board = new Hexx.board.Board();
+            this.board = new Board();
 
             this.debug('Mouse position', function() {
                 return this.getRealMousePosition();

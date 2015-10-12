@@ -1,10 +1,13 @@
 (function () {
 
-    var mainController = new Hexx.controllers.Main(document.body);
+    var MainController = Hexx.controllers.Main,
+        Sockets = Hexx.services.Sockets;
 
-    Hexx.services.Sockets.connect();
+    var mainController = new MainController(document.body);
 
-    Hexx.services.Sockets.onConnect(function() {
+    Sockets.connect();
+
+    Sockets.onConnect(function() {
         mainController.show();
     });
 

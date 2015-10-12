@@ -1,4 +1,7 @@
 (function () {
+
+    var Tile = Hexx.board.Tile;
+
     Hexx.board.Board = Class.extend({
 
         _tiles: [],
@@ -89,7 +92,7 @@
                 return;
             }
             if (!this.boardMap[x + '' + y]) {
-                var tile = new Hexx.board.Tile(
+                var tile = new Tile(
                     x * rad * 1.5,
                     (x % 2 ? Math.sin(Math.PI / 3) : 0) * rad + y * rad * Math.sin(Math.PI / 3) * 2,
                     0,

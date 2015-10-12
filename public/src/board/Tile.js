@@ -1,4 +1,6 @@
 (function () {
+    var Geo = Hexx.utils.Geo;
+
     Hexx.board.Tile = Class.extend({
 
         position: {
@@ -32,7 +34,7 @@
                 var angle = ((Math.PI * 2) / 6) * a;
 
                 points.push(
-                    Hexx.utils.Geo.isoProjection(
+                    Geo.isoProjection(
                         {
                             x: this.position.x + Math.cos(angle) * radius,
                             y: this.position.y + Math.sin(angle) * radius
@@ -85,7 +87,7 @@
                 x: 0,
                 y: 0
             };
-            var isoPos = Hexx.utils.Geo.isoProjection(
+            var isoPos = Geo.isoProjection(
                 this.position,
                 origin,
                 game.camera.angle
