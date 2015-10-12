@@ -1,8 +1,10 @@
 (function() {
 
-    Hexx.controllers.Auth = Class.extend({
+    Hexx.controllers.Auth = Hexx.core.Controller.extend({
 
         init: function(container) {
+            this._super(container);
+
             this.$buttonAuth = container.querySelector('#button-auth');
             this.$labelAuthResult = container.querySelector('#label-auth-result');
             this.$inputUsername = container.querySelector('#input-username');

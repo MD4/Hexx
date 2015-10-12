@@ -1,8 +1,10 @@
 (function() {
 
-    Hexx.controllers.Game = Class.extend({
+    Hexx.controllers.Game = Hexx.core.Controller.extend({
 
         init: function(container) {
+            this._super(container);
+
             this.game = new Hexx.core.Game(
                 container,
                 {
