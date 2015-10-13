@@ -1,9 +1,10 @@
 module.exports.add = add;
 module.exports.remove = remove;
+module.exports.match = match;
 
 var _queue = [];
 
-// public
+// private
 
 function _notifyAll() {
     _queue.forEach(function(client) {
@@ -28,20 +29,10 @@ function _getPosition(client) {
     return _queue.indexOf(client);
 }
 
-function _match() {
-    if (_queue.length >= 2) {
-        _notify(_queue[0], 'onMatch', _queue[1]);
-        _notify(_queue[1], 'onMatch', _queue[0]);
-
-        remove(_queue[0]);
-        remove(_queue[1]);
-    }
-}
-
-
-// private
+// public
 
 function add(client) {
+    console.log(1, _queue.length);
     _queue.push(client);
     _notifyAllPositions();
 }
@@ -49,4 +40,21 @@ function add(client) {
 function remove(client) {
     _queue.splice(_getPosition(client), 1);
     _notifyAllPositions();
+}
+
+function match() {
+    if (_queue.length >= 2) {
+        console.log(3, _queue.length);
+        var match = {
+            a: _queue[0],
+            b: _queue[1]
+        };
+        _queue.splice(0, 2);
+        _notifyAllPositions();
+
+        console.log(2, _queue.length);
+
+        return match;
+    }
+    return null;
 }

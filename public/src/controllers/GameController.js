@@ -21,12 +21,12 @@
             };
         },
 
-        startGame: function() {
-            this.game.start();
+        shown: function() {
+            this.game && this.game.start();
         },
 
-        stopGame: function() {
-            this.game.stop();
+        hidden: function() {
+            this.game && this.game.stop();
         }
 
     });

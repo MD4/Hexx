@@ -9,7 +9,8 @@
             x: 0,
             y: 0,
             z: 0,
-            angle: 0
+            angle: -Math.PI / 2,
+            targetAngle: -Math.PI / 2
         },
 
         turn: 0,
@@ -31,11 +32,19 @@
             this.board.update(this, time, delta);
 
             //this.camera.angle += (((this.turn ? Math.PI / 2: -Math.PI / 2) - this.camera.angle) / 10) * delta;
-            this.camera.angle = -Math.PI / 2;
+            //this.camera.angle = -Math.PI / 2;
 
             if (this.isJustButtonUp(0) && this.hoveredTile) {
                 this.onPlay(this.hoveredTile.coords.x, this.hoveredTile.coords.y);
             }
+            if (this.isJustKeyUp(37)) {
+                this.camera.targetAngle -= Math.PI / 6;
+            }
+            if (this.isJustKeyUp(39)) {
+                this.camera.targetAngle += Math.PI / 6;
+            }
+
+            this.camera.angle += ((this.camera.targetAngle - this.camera.angle) / 5) * delta;
         },
 
         draw: function (context, time, elapsedTime, delta) {

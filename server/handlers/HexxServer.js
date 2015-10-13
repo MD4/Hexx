@@ -1,4 +1,5 @@
 var HexxClient = require('./HexxClient');
+var Matcher = require('../core/Matcher');
 
 var HexxServer = function (io) {
     this.io = io;
@@ -10,5 +11,6 @@ HexxServer.prototype.start = function () {
     });
 };
 
+Matcher.start();
 
 module.exports = HexxServer;

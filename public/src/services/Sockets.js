@@ -48,6 +48,10 @@
 
         onQueuePosition: function (callback) {
             this.socket.on('queue:position', callback);
+        },
+
+        onQueueMatch: function(callback) {
+            this.socket.on('queue:match', callback);
         }
 
     };

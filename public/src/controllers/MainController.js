@@ -27,6 +27,11 @@
                 this.authController.hide();
                 this.queueController.show();
             }.bind(this));
+
+            this.queueController.on(QueueController.QUEUE_MATCH, function () {
+                this.queueController.hide();
+                this.gameController.show();
+            }.bind(this));
         }
 
     });

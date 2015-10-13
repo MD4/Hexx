@@ -1,4 +1,4 @@
-var Queue = require('../queue/Queue');
+var Queue = require('../core/Queue');
 
 var HexxClient = function (socket) {
     console.log('User connected');
@@ -15,6 +15,10 @@ var HexxClient = function (socket) {
     socket.on('auth', this.onAuth.bind(this));
     socket.on('queue', this.onQueue.bind(this));
     socket.on('disconnect', this.onDisconnect.bind(this));
+};
+
+HexxClient.prototype.match = function(player) {
+    this.socket.emit('queue:match', player);
 };
 
 HexxClient.prototype.onAuth = function (username) {
