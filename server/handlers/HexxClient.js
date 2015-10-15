@@ -17,8 +17,10 @@ var HexxClient = function (socket) {
     socket.on('disconnect', this.onDisconnect.bind(this));
 };
 
-HexxClient.prototype.match = function(player) {
-    this.socket.emit('queue:match', player);
+HexxClient.prototype.match = function(player, matchId) {
+    this.matchId = matchId;
+    this.socket.join(matchId);
+    this.socket.emit('queue:match', player, matchId);
 };
 
 HexxClient.prototype.onAuth = function (username) {

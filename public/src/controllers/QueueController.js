@@ -22,8 +22,8 @@
             this.refreshPosition(position);
         },
 
-        onQueueMatch: function(player) {
-            this.$labelPosition.innerHTML = 'Player found : ' + player.username + ' !';
+        onQueueMatch: function(player, matchId) {
+            this.$labelPosition.innerHTML = 'Player found : ' + player.username + ' ! (Game #' + matchId + ')';
 
             setInterval(function() {
                 this.trigger(QueueController.QUEUE_MATCH, player);

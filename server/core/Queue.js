@@ -32,28 +32,26 @@ function _getPosition(client) {
 // public
 
 function add(client) {
-    console.log(1, _queue.length);
     _queue.push(client);
     _notifyAllPositions();
 }
 
 function remove(client) {
+    var position = _getPosition(client);
+    if (position === -1) {
+        return;
+    }
     _queue.splice(_getPosition(client), 1);
     _notifyAllPositions();
 }
 
 function match() {
     if (_queue.length >= 2) {
-        console.log(3, _queue.length);
         var match = {
-            a: _queue[0],
-            b: _queue[1]
+            a: _queue.shift(),
+            b: _queue.shift()
         };
-        _queue.splice(0, 2);
         _notifyAllPositions();
-
-        console.log(2, _queue.length);
-
         return match;
     }
     return null;
