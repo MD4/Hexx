@@ -1,3 +1,5 @@
+var Match = require('./Match');
+
 module.exports.add = add;
 module.exports.remove = remove;
 module.exports.match = match;
@@ -47,10 +49,10 @@ function remove(client) {
 
 function match() {
     if (_queue.length >= 2) {
-        var match = {
-            a: _queue.shift(),
-            b: _queue.shift()
-        };
+        var match = new Match(
+            _queue.shift(),
+            _queue.shift()
+        );
         _notifyAllPositions();
         return match;
     }

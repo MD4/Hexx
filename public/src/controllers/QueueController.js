@@ -22,12 +22,12 @@
             this.refreshPosition(position);
         },
 
-        onQueueMatch: function(player, matchId) {
-            this.$labelPosition.innerHTML = 'Player found : ' + player.username + ' ! (Game #' + matchId + ')';
+        onQueueMatch: function(player) {
+            this.$labelPosition.innerHTML = 'Player found : ' + player.username + ' !';
 
             setInterval(function() {
                 this.trigger(QueueController.QUEUE_MATCH, player);
-            }.bind(this), 3000);
+            }.bind(this), 1500);
         },
 
         refreshPosition: function(position) {

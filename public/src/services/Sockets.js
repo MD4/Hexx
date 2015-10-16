@@ -52,6 +52,10 @@
 
         onQueueMatch: function(callback) {
             this.socket.on('queue:match', callback);
+        },
+
+        onGameStart: function(callback) {
+            this.socket.on('game:start', callback);
         }
 
     };

@@ -19,6 +19,8 @@
             this.game.onPlay = function(x, y) {
                 Sockets.play(x, y);
             };
+
+            Sockets.onGameStart(this.onGameStart.bind(this));
         },
 
         shown: function() {
@@ -27,6 +29,10 @@
 
         hidden: function() {
             this.game && this.game.stop();
+        },
+
+        onGameStart: function() {
+            console.log('start !');
         }
 
     });
