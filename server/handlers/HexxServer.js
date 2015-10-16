@@ -7,8 +7,8 @@ var HexxServer = function (io) {
 
 HexxServer.prototype.start = function () {
     this.io.on('connection', function (socket) {
-        new HexxClient(socket);
-    });
+        new HexxClient(this.io, socket);
+    }.bind(this));
 };
 
 Matcher.start();

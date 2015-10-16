@@ -25,7 +25,7 @@
         onQueueMatch: function(player) {
             this.$labelPosition.innerHTML = 'Player found : ' + player.username + ' !';
 
-            setInterval(function() {
+            setTimeout(function() {
                 this.trigger(QueueController.QUEUE_MATCH, player);
             }.bind(this), 1500);
         },

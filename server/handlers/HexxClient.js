@@ -1,57 +1,52 @@
 var Queue = require('../core/Queue');
 
-var HexxClient = function (socket) {
+var HexxClient = function (io, socket) {
     console.log('User connected');
 
-    this.socket = socket;
-    this.auth = null;
+    this._io = io;
+    this._socket = socket;
+    this._auth = null;
+    this._matchId = null;
 
-    /*this.timeout = setTimeout(function () {
-        if (this.socket.connected && !this.auth) {
-            this.socket.disconnect();
-        }
-    }.bind(this), 5000);*/
-
-    socket.on('auth', this.onAuth.bind(this));
-    socket.on('queue', this.onQueue.bind(this));
-    socket.on('disconnect', this.onDisconnect.bind(this));
+    this._socket.on('auth', this.onAuth.bind(this));
+    this._socket.on('queue', this.onQueue.bind(this));
+    this._socket.on('disconnect', this.onDisconnect.bind(this));
 };
 
 HexxClient.prototype.match = function(player, matchId) {
-    this.matchId = matchId;
-    this.socket.join(matchId);
-    this.socket.emit('queue:match', player, matchId);
+    this._matchId = matchId;
+    this._socket.join(matchId);
+    this._socket.emit('queue:match', player, matchId);
 };
 
 HexxClient.prototype.onAuth = function (username) {
     if (username.match(/^[a-z0-9_-]{3,16}$/)) {
-        this.auth = {
+        this._auth = {
             username: username,
             connectionDate: new Date()
         };
 
-        this.socket.emit('auth:success', this.auth);
+        this._socket.emit('auth:success', this._auth);
     } else {
-        this.socket.emit('auth:fail');
+        this._socket.emit('auth:fail');
     }
 };
 
 HexxClient.prototype.onQueue = function () {
-    if (this.auth) {
+    if (this._auth) {
         Queue.add(this);
     } else {
-        this.socket.emit('queue:fail');
+        this._socket.emit('queue:fail');
     }
 };
 
 HexxClient.prototype.onDisconnect = function () {
-    //clearTimeout(this.timeout);
     Queue.remove(this);
     console.log('User disconnected');
 };
 
 HexxClient.prototype.onQueuePositionChanged = function(position) {
-    this.socket.emit('queue:position', position);
+    this._socket.emit('queue:position', position);
 };
 
 module.exports = HexxClient;

@@ -2,15 +2,15 @@
 var Match = function (playerA, playerB) {
     console.log(
         'match done !',
-        playerA.auth.username,
+        playerA._auth.username,
         '<->',
-        playerB.auth.username
+        playerB._auth.username
     );
 
     this._playerA = playerA;
     this._playerB = playerB;
 
-    this._socket = this._playerA.socket;
+    this._io = this._playerA._io;
 
     this._id = _guid();
 
@@ -18,13 +18,13 @@ var Match = function (playerA, playerB) {
 };
 
 Match.prototype._notifyMatch = function() {
-    this._playerA.match(this._playerB.auth, this._id);
-    this._playerB.match(this._playerA.auth, this._id);
+    this._playerA.match(this._playerB._auth, this._id);
+    this._playerB.match(this._playerA._auth, this._id);
 };
 
 Match.prototype.start = function() {
-    setInterval(function() {
-        this._socket.to(this._id).emit('game:start');
+    setTimeout(function() {
+        this._io.sockets.in(this._id).emit('game:start');
     }.bind(this), 3000);
 };
 
